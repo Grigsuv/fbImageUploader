@@ -1,0 +1,10 @@
+{
+    "accessToken":"test",
+    "albumId":"319406708734110",
+    "ignoreExistingFiles" : "false",
+   "lookFolderPath": "/home/grig/Desktop/asd/Fb/files",
+    "uploadedFolder":  "/home/grig/Desktop/asd/Fb/uploadedFiles",
+    "errorsFolder" : "uploadErorrFiles"
+    //"uploadedFolder": "C:/Users/tigod/Pictures/upload", for windows
+   //  "lookFolderPath": "C:/Users/tigod/Pictures/files"
+}
