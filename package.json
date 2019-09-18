@@ -1,18 +1,27 @@
 {
-  "name": "Fb",
+  "name": "fbImageUploader",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "chokidar": "^3.0.0",
     "config": "^3.1.0",
     "fb": "^2.0.0",
     "is-image": "^3.0.0"
-  }
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Grigsuv/fbImageUploader.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Grigsuv/fbImageUploader/issues"
+  },
+  "homepage": "https://github.com/Grigsuv/fbImageUploader#readme"
 }
