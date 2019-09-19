@@ -1,12 +1,12 @@
 const chokidar = require('chokidar');
 const config = require('config');
-
 const fs = require('fs');
 const path = require('path');
 const isImage = require('is-image');
-const lookFolder = path.normalize(config.get("lookFolderPath"));
-const uploadedFolder = path.normalize(config.get("uploadedFolder"));
-const errorsFolder = path.normalize(config.get("errorsFolder"));
+
+const lookFolder = path.isAbsolute(config.get("lookFolderPath")) ? path.normalize( config.get("lookFolderPath")) : path.join(__dirname , config.get("lookFolderPath")) ;
+const uploadedFolder = path.isAbsolute(config.get("uploadedFolder")) ? path.normalize( config.get("uploadedFolder")) : path.join(__dirname , config.get("uploadedFolder"));
+const errorsFolder = path.isAbsolute(config.get("errorsFolder")) ? path.normalize( config.get("errorsFolder")) : path.join(__dirname , config.get("errorsFolder"));;
 const ignoreInitial = config.get("ignoreExistingFiles") == 'true';
 
 
@@ -23,25 +23,17 @@ const watcher = chokidar.watch(lookFolder, {
   }
 });
 
-module.exports = {
-  isImage,
-  watcher,
-  filenameClearer,
-  moveToErrorFolder,
-  moveToUploadedFolder,
-  createReadStrem
-};
 
-function createReadStrem(filePath) {
+function createReadStream(filePath) {
   return fs.createReadStream(filePath)
 }
 
 function moveToErrorFolder(filename) {
-  return moveFile(lookFolder + `/${file}`, errorsFolder + `/${file}`)
+  return moveFile(lookFolder + `/${filename}`, errorsFolder + `/${filename}`)
 }
 
 function moveToUploadedFolder(filename) {
-  return moveFile(lookFolder + `/${file}`, uploadedFolder + `/${file}`)
+  return moveFile(lookFolder + `/${filename}`, uploadedFolder + `/${filename}`)
 }
 
 function filenameClearer(filepath) {
@@ -50,18 +42,28 @@ function filenameClearer(filepath) {
     .replace(/\\/g, "")
     .replace(/\//g, '');
   return {
-    withExtension : filepath,
-    withoutExtension:  filepath.replace(/\.[^/.]+$/, ""),
+    withExtension: filepath,
+    withoutExtension: filepath.replace(/\.[^/.]+$/, ""),
   }
-  
+
 }
 
-function moveFile(file, from = lookFolder + `/${file}`) {
+function moveFile(from, to) {
   fs.rename(from, to, (err, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log('File was uploaded and moved!!');
+      console.log('File was moved!!');
     }
   })
 }
+
+
+module.exports = {
+  isImage,
+  watcher,
+  filenameClearer,
+  moveToErrorFolder,
+  moveToUploadedFolder,
+  createReadStream
+};

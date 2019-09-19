@@ -6,13 +6,14 @@ watcher
         if (!isImage(filePath))
             return;
         let fileName = filenameClearer(filePath)
+
         FBService.postImage(createReadStream(filePath), fileName.withExtension, (err, res) => {
             if (err) {
                 console.log(err);
                 console.log(`${filePath} wasn't uploaded`);
-                moveToErrorFolder(fileName.withoutExtension);
+                moveToErrorFolder(fileName.withExtension);
             } else {
-                moveToUploadedFolder(fileName.withoutExtension);
+                moveToUploadedFolder(fileName.withExtension);
             }
         })
     })
